@@ -1,0 +1,1 @@
+export DATABASE_URL="postgres://{postgres}:{95149514}@{localhost:5432}/{donation_app}"
