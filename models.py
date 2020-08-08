@@ -1,7 +1,8 @@
-import os
-from sqlalchemy import Column, String, Integer, Float, DateTime, Boolean, create_engine
+from sqlalchemy import Column, String, Integer, Float, DateTime, Boolean
+from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
+import os
 import datetime
 import json
 
@@ -16,6 +17,7 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     db.create_all()
 
+
 class Cases(db.Model):
     __tablename__ = 'cases'
 
@@ -23,7 +25,8 @@ class Cases(db.Model):
     number = Column(String)
     date = Column(DateTime)
     issuer = Column(String)
-    services = db.relationship('Services', backref='cases', cascade="all, delete, delete-orphan")
+    services = db.relationship('Services', backref='cases',
+                               cascade="all, delete, delete-orphan")
     total_amount = Column(Float)
     paid = Column(Boolean)
 
@@ -33,7 +36,7 @@ class Cases(db.Model):
         self.issuer = issuer
         # self.services = services
         self.total_amount = total_amount
-    
+
     def format(self):
         return {
             'id': self.id,
@@ -44,6 +47,7 @@ class Cases(db.Model):
             'total_amount': self.total_amount,
             'paid': self.paid,
         }
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
@@ -55,9 +59,10 @@ class Cases(db.Model):
     def update(self):
         db.session.commit()
 
+
 class Services(db.Model):
     __tablename__ = 'services'
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     case_id = Column(Integer, db.ForeignKey('cases.id'))
     description = Column(String)
@@ -69,7 +74,7 @@ class Services(db.Model):
         self.amount = amount
         self.description = description
         self.quantity = quantity
-    
+
     def format(self):
         return {
             'case_id': self.case_id,
@@ -88,18 +93,18 @@ class Services(db.Model):
     def update(self):
         db.session.commit()
 
-    
+
 class Donors(db.Model):
     __tablename__ = 'donors'
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     montly_limit = Column(Float)
 
-    def __init__(self, name, montly_limit = None):
+    def __init__(self, name, montly_limit=None):
         self.name = name
         self.montly_limit = montly_limit
-    
+
     def format(self):
         return {
             'name': self.name,
@@ -117,20 +122,21 @@ class Donors(db.Model):
     def update(self):
         db.session.commit()
 
+
 class Donations(db.Model):
     __tablename__ = 'donations'
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     case_id = Column(Integer, db.ForeignKey('cases.id'))
     donor_id = Column(Integer, db.ForeignKey('donors.id'), nullable=True)
-    
+
     paid_amount = Column(Float)
 
     def __init__(self, case_id, paid_amount, donor_id=None):
         self.case_id = case_id
         self.donor_id = donor_id
         self.paid_amount = paid_amount
-    
+
     def format(self):
         return {
             'case_id': self.case_id,
