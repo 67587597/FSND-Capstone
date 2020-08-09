@@ -24,7 +24,7 @@ def create_app(test_config=None):
     def get_cases():
         try:
             cases = [case.format() for case in Cases.query.all()]
-            print(cases)
+            # print(cases)
             return jsonify({"success": True, "cases": cases}), 200
         except requests.exceptions.HTTPError:
             abort(500)
@@ -35,7 +35,7 @@ def create_app(test_config=None):
         try:
             donations = [donation.format() for donation
                          in Donations.query.all()]
-            print(donations)
+            # print(donations)
             return jsonify({"success": True, "donations": donations}), 200
         except requests.exceptions.HTTPError:
             abort(500)
@@ -45,7 +45,7 @@ def create_app(test_config=None):
         try:
             try:
                 case = Cases.query.filter_by(id=case_id).one_or_none().format()
-                print(case)
+                # print(case)
             except:
                 abort(404)
 
@@ -67,7 +67,7 @@ def create_app(test_config=None):
                                      quantity=serv["quantity"]))
             case.insert()
             case_id = case.id
-            print(case_id)
+            # print(case_id)
             # Cases.query.filter_by(number=body["number"]).one_or_none()['id']
             return jsonify({"success": True, "case_id": case_id}), 200
         except requests.exceptions.HTTPError:
@@ -100,14 +100,18 @@ def create_app(test_config=None):
     @require_auth('delete:case')
     def delete_case(case_id):
         try:
-            try:
-                case = Cases.query.filter_by(id=case_id).one_or_none()
-                print(case + 'to delete')
-                case.delete()
-                return jsonify({"success": True, "case_id": case_id}), 200
+            case = Cases.query.filter_by(id=case_id).one_or_none()
+            # print(case + 'to delete')
+            if(case is None):
+              abort(404)
 
+            try:
+                case.delete()
             except:
-                abort(404)
+                abort(422)
+            
+            return jsonify({"success": True, "case_id": case_id}), 200
+            
 
         except requests.exceptions.HTTPError:
             abort(500)

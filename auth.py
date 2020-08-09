@@ -17,10 +17,10 @@ def get_token_authorization_header():
         raise AuthError({'code': 'authorization_header',
                         'description': 'authorization is missing'}, 401)
 
-    print(request.headers['authorization'])
+    # print(request.headers['authorization'])
     auth = request.headers['authorization'].split()
-    print('auth')
-    print(auth)
+    # print('auth')
+    # print(auth)
 
     if(len(auth) != 2 or auth[0].lower() != 'bearer'):
         raise AuthError({'code': 'invalid hearder',
@@ -44,41 +44,41 @@ def check_permission(permission, payload):
 
 def verify_token(token):
     # get the puplic key ID
-    print('url')
+    # print('url')
     algorithms = os.environ['ALGORITHMS']
     API_AUDIENCE = os.environ['API_AUDIENCE']
     AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
-    print(AUTH0_DOMAIN)
+    # print(AUTH0_DOMAIN)
 
     url = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(url.read())
-    print(url)
-    print(jwks)
+    # print(url)
+    # print(jwks)
 
     # define the key dictonary to verify the token
     key_set = {}
     # claim_key = {}
 
-    print('key_set')
-    print(key_set)
+    # print('key_set')
+    # print(key_set)
     unverified_header = jwt.get_unverified_header(token)
     if unverified_header['kid'] is None:
         raise AuthError({'code': 'invalid header',
                         'description': 'invalid header'}, 401)
-    print(unverified_header)
+    # print(unverified_header)
 
     # use key sets from public key to set the value of key claim
     for key in jwks['keys']:
         if unverified_header['kid'] == key['kid']:
             key_set = key
 
-    print('key_set')
-    print(key_set)
+    # print('key_set')
+    # print(key_set)
 
     if key_set:
         try:
-            print(algorithms)
-            print(API_AUDIENCE)
+            # print(algorithms)
+            # print(API_AUDIENCE)
             payload = jwt.decode(token, key_set, algorithms=algorithms,
                                  audience=API_AUDIENCE,
                                  issuer='https://' + AUTH0_DOMAIN + '/')

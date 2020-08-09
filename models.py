@@ -129,7 +129,6 @@ class Donations(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     case_id = Column(Integer, db.ForeignKey('cases.id'))
     donor_id = Column(Integer, db.ForeignKey('donors.id'), nullable=True)
-
     paid_amount = Column(Float)
 
     def __init__(self, case_id, paid_amount, donor_id=None):
