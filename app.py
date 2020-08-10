@@ -1,7 +1,12 @@
-from flask import Flask, request, abort, jsonify
+from werkzeug.exceptions import HTTPException
+from dotenv import load_dotenv, find_dotenv
+from flask import Flask, request, abort, jsonify, redirect
 from flask_migrate import Migrate
+from flask import render_template, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from authlib.integrations.flask_client import OAuth
+from six.moves.urllib.parse import urlencode
 from auth import require_auth, AuthError
 from models import setup_db, Cases, Donations, Donors, Services
 import os
@@ -15,10 +20,63 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+    # # using the demo intorduced by auth0 here https://auth0.com/docs/quickstart/webapp/python/01-login to implement below auth section
+    # oauth = OAuth(app)
+    # AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+
+    # auth0 = oauth.register(
+    #     'auth0',
+    #     client_id=os.environ['Client_ID'],
+    #     client_secret=os.environ['CLIENT_SECERT'],
+    #     api_base_url=f'https://{AUTH0_DOMAIN}',
+    #     access_token_url=f'https://{AUTH0_DOMAIN}/oauth/token',
+    #     authorize_url=f'https://{AUTH0_DOMAIN}/authorize',
+    #     client_kwargs={
+    #         'scope': 'openid profile email',
+    #     },
+    # )
+
+    # @app.route('/callback')
+    # def callback_handling():
+    # # Get response from token endpoint
+    #     print('here')
+    #     auth0.authorize_access_token()
+    #     print(auth0.authorize_access_token())
+
+    #     response = auth0.get('userinfo')
+    #     userinfo = response.json()
+
+    #     # Store the user information in flask session.
+    #     session['jwt_payload'] = userinfo
+    #     session['profile'] = {
+    #         'user_id': userinfo['sub'],
+    #         'name': userinfo['name']
+    #     }
+    #     print(session['profile'])
+    #     return redirect('/main')
+
+    # @app.route('/login')
+    # def login():
+    #     return auth0.authorize_redirect(redirect_uri=os.environ['CALLBACK_URL'])
+    
+    # @app.route('/logout')
+    # def logout():
+    #     # Clear session stored data
+    #     session.clear()
+    #     print('logged out successfully')
+    #     # Redirect user to logout endpoint
+    #     params = {'returnTo': url_for('main', _external=True), 'client_id': os.environ['Client_ID']}
+    #     return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
+
     @app.route('/main')
+    @app.route('/callback')
     @app.route('/')
     def main():
-        return 'test'
+        # if 'profile' not in session:
+        #     print('not in session')
+        #     return redirect('/login')
+        # return 'Welcome' +  session['profile'].name
+        return 'We Donors !'
 
     @app.route('/cases')
     def get_cases():
@@ -88,7 +146,7 @@ def create_app(test_config=None):
                 if(amount >= total_amount):
                     case.paid = True
                     case.update()
-                return jsonify({"success": True, "donation": donation.id}), 200
+                return jsonify({"success": True, "donation_id": donation.id}), 200
 
             except:
                 abort(404)
@@ -172,7 +230,7 @@ def create_app(test_config=None):
     return app
 
 APP = create_app()
-
 if __name__ == '__main__':
     # APP.run(host='0.0.0.0', port=8080, debug=True)
-    app.run()
+    # app.run()
+    APP.run()
