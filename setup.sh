@@ -1,4 +1,4 @@
-export DATABASE_URL='postgres://xvgxnissusuzya:c25e797fd3d7baf1ade20977dfda482dca21cebfb2cd1cadba09aa2114d516f7@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d8veqgeekm23dp'
+export DATABASE_URL=' postgres://xhgtwddkovihiy:7ff1b99b677b99277a241e4cc788b5f255efc6b1fbf59af029395700bcb93af8@ec2-50-16-198-4.compute-1.amazonaws.com:5432/d1o28uhamc2kfa'
 export TEST_DATABASE_URL='postgres://xvgxnissusuzya:c25e797fd3d7baf1ade20977dfda482dca21cebfb2cd1cadba09aa2114d516f7@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d8veqgeekm23dp'
 export AUTH0_DOMAIN='dev-nhx1jtvg.us.auth0.com'
 export ALGORITHMS=['RS256']
