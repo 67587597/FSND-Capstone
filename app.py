@@ -18,8 +18,16 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    CORS(app)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+    @app.after_request
+    def after_request(response):
+        response.headers.add("Access-Control-Alow-Hearders",
+                             "Content-Type, Authorization")
+        response.headers.add("Access-Control-Allow-Methods",
+                             "GET, PUT, POST, PATCH, DELETE, OPTIONS")
+        return response
+        
     # # using the demo intorduced by auth0 here https://auth0.com/docs/quickstart/webapp/python/01-login to implement below auth section
     # oauth = OAuth(app)
     # AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
