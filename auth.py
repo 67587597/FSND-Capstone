@@ -1,4 +1,5 @@
 import json
+import logging
 from flask import request, _request_ctx_stack, abort
 from functools import wraps
 from jose import jwt
@@ -11,6 +12,29 @@ class AuthError(Exception):
         self.error = error
         self.status_code = status_code
 
+LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
+
+
+def _logger():
+    '''
+    Setup logger format, level, and handler.
+
+    RETURNS: log object
+    '''
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    log = logging.getLogger(__name__)
+    log.setLevel(LOG_LEVEL)
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+
+    log.addHandler(stream_handler)
+    return log
+
+
+LOG = _logger()
+LOG.debug("Starting with log level: %s" % LOG_LEVEL )
 
 def get_token_authorization_header():
     if('authorization' not in request.headers):
@@ -49,6 +73,7 @@ def verify_token(token):
     API_AUDIENCE = os.environ.get['API_AUDIENCE']
     AUTH0_DOMAIN = os.environ.get['AUTH0_DOMAIN']
     # print(AUTH0_DOMAIN)
+    LOG.error('before getting public key')
 
     url = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(url.read())
@@ -66,6 +91,7 @@ def verify_token(token):
         raise AuthError({'code': 'invalid header',
                         'description': 'invalid header'}, 401)
     # print(unverified_header)
+    LOG.error('before setting key_set')
 
     # use key sets from public key to set the value of key claim
     for key in jwks['keys']:
@@ -79,9 +105,14 @@ def verify_token(token):
         try:
             # print(algorithms)
             # print(API_AUDIENCE)
+            LOG.error('payload decoding')
             payload = jwt.decode(token, key_set, algorithms=algorithms,
                                  audience=API_AUDIENCE,
                                  issuer='https://' + AUTH0_DOMAIN + '/')
+            LOG.error('AUTH0_DOMAIN =' + AUTH0_DOMAIN)
+            LOG.error('algorithms =' + algorithms)
+            LOG.error('API_AUDIENCE =' + API_AUDIENCE)
+            
             return payload
         except jwt.ExpiredSignatureError:
                 raise AuthError({'code': 'invalid header',
