@@ -99,11 +99,11 @@ def require_auth(permission=''):
         @wraps(f)
         def wrapper(*arg, **kwargs):
             token = get_token_authorization_header()
-            try:
-                payload = verify_token(token)
-            except:
-                raise AuthError({'code': 'invalid header',
-                                 'description': 'invalid token'}, 401)
+            #try:
+            payload = verify_token(token)
+            # except:
+            #     raise AuthError({'code': 'invalid header',
+            #                      'description': 'invalid token'}, 401)
 
             check_permission(permission, payload)
 
