@@ -45,9 +45,9 @@ def check_permission(permission, payload):
 def verify_token(token):
     # get the puplic key ID
     # print('url')
-    algorithms = os.environ['ALGORITHMS']
-    API_AUDIENCE = os.environ['API_AUDIENCE']
-    AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+    algorithms = os.environ.get['ALGORITHMS']
+    API_AUDIENCE = os.environ.get['API_AUDIENCE']
+    AUTH0_DOMAIN = os.environ.get['AUTH0_DOMAIN']
     # print(AUTH0_DOMAIN)
 
     url = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
