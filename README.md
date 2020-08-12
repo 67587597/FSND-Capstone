@@ -3,6 +3,8 @@
     - administrators with permission to create, delete cases and view all donations. 
     - donors with permission to make donations which may update the value of the subject case.
 
+# APP URL
+https://we-donors.herokuapp.com
 
 # Installing Dependencies
  Python 3.7
@@ -54,7 +56,7 @@ GET '/cases'
 - Retrieves all cases, this endpoint does not require any permission
 - Parameters: 
   none  
-- Sample: http://127.0.0.1:5000/cases
+- Sample: https://we-donors.herokuapp.com/cases
 - Returns: 'cases' object which contains a list of cases objects - each contains number, date, id, issuer, number, paid, total_amount and a list of object services where each service consists of amount, case_id, quantity 
 {
   "cases": [
@@ -107,7 +109,7 @@ GET '/donations'
 - Retrieves all donations, the endpoint requires administrator permission
 - Parameters: 
   none  
-- Sample: http://127.0.0.1:5000/donations
+- Sample: https://we-donors.herokuapp.com/donations
 - Returns: 'donations' object which consists of a list of donations objects - each one contains case_id, donor_id, paid_amount 
 {
   "donations": [
@@ -129,7 +131,7 @@ GET '/cases/<case_id>'
 - Fetches particular case by id, this endpoint does not require any permission
 - Parameters: 
   Request Arguments: case_id of type integer
-- Sample: http://127.0.0.1:5000/cases/1
+- Sample: https://we-donors.herokuapp.com/cases/1
 - Returns: 'cases' object which contains a list with specific case object which contains number, date, id, issuer, number, paid, total_amount and a list of object services where each service consists of amount, case_id, quantity 
 {
   "cases": {
@@ -166,7 +168,7 @@ POST '/cases/<case_id>'
         - description of type string
         - amount of type float
         - quantity  of type integer
-- Sample: http://127.0.0.1:5000/cases
+- Sample: https://we-donors.herokuapp.com/cases
     request body:
     {
     "issuer": "Gd",
@@ -181,7 +183,7 @@ PATCH '/cases/<case_id>'
 - Parameters: 
     Request ARGUMENT: CASE_ID OF TYPE INTEGER
     Request Body Parameters: object of key:value pair where key is amount and value is of float type
-- Sample: http://127.0.0.1:5000/cases/1
+- Sample: https://we-donors.herokuapp.com/cases/1
     request body:
     {"amount": 230}
 - Returns: newly inserted newly added donation_id
@@ -191,6 +193,6 @@ DELETE '/cases/<case_id>'
 - Adds a new donation linked with given case id, this endpoint requires administrator permission
 - Parameters: 
     Request ARGUMENT: CASE_ID OF TYPE INTEGER
-- Sample: http://127.0.0.1:5000/cases/1
+- Sample: https://we-donors.herokuapp.com/cases/1
 - Returns: delete case_id
 
