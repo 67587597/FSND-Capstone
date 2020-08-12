@@ -1,6 +1,6 @@
 # FSND-Capstone We_Donors
   This app aims to provide a trustworthy donation platform where donors can contribute to cases that serve their community, this app could be customized further to meet special needs (rescue animals, crisis). The roles available are:
-    - administrators with the permission to create, delete cases and to view all donations. 
+    - administrators with permission to create, delete cases and view all donations. 
     - donors with permission to make donations which may update the value of the subject case.
 
 
@@ -10,19 +10,22 @@
 Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
 # PIP Dependencies
-Once you have your virtual environment setup and running, install dependencies by naviging to the project directory and running:
+Once you have your virtual environment setup and running, install dependencies by navigating to the project directory and running:
     
     pip install -r requirements.txt
 
-This will install all of the required packages addeded within the `requirements.txt` file.
+This will install all of the required packages which added within the `requirements.txt` file.
 
 # Database
 
-to create database use below command
+to create the database, use below command
 createdb -U [username] we_donors
 
-to create test database use below command
+to create the test database, use below command
 createdb -U [username] we_donors_test
+
+# authentication
+There are 2 tokens (aministrator_token donor_token) provided for authentication purpose in setup.sh
 
 # running the server
 to run the server locally, navigate to project directory and use below commands
@@ -39,8 +42,10 @@ and then run the server
     flask run
 
 # running the tests
-to run the tests, navigate to project directory and use below commands
-python test.py
+To run unit tests, navigate to project directory and use below commands
+	python test.py
+
+The postman test collection (udacity-fsnd-capstone.postman_collection.json) could be used for endpoints testing. 
 
 
 APIs:

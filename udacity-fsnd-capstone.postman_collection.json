@@ -1,0 +1,496 @@
+{
+	"info": {
+		"_postman_id": "2f9f309a-d1d7-4775-b1b0-012f5fa4a99a",
+		"name": "udacity-fsnd-capstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "administrator",
+			"item": [
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00fce179-5fb7-4b12-87a6-a7d5303b7d26",
+								"exec": [
+									"pm.test(\"success request 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"issuer\": \"Godd\",\r\n    \"services\": [{\"description\":\"test1\", \"amount\":20,\"quantity\":10},{\"description\":\"test3\",\"amount\":200,\"quantity\":1}],\r\n    \"number\": \"tryfme\",\r\n    \"total_amount\": 230.0\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd0c12c6-e734-475e-b2bb-5ec37fcaddb8",
+								"exec": [
+									"pm.test(\"success request 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('expected type of response is array of objects', function(){\r",
+									"    var res = pm.response.json();\r",
+									"    var cases = res.cases;\r",
+									"    pm.expect(cases).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"// pm.test('expected type of response is array of objects', function(){\r",
+									"//     var res = pm.response.json();\r",
+									"//     var cases = res.cases;\r",
+									"//     if(cases.length > 0)\r",
+									"//         pm.expect(cases[0]['services']).to.be.an('array');\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "donations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9cb51d8-0b8d-4ef9-9cc8-ac9782199fa2",
+								"exec": [
+									"pm.test(\"success request 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/donations",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"donations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c04837da-374f-4929-9546-b08dad41bb6d",
+								"exec": [
+									"pm.test(\"success request 403\", function(){\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"amount\": 230}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases/1",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c9cd448-0315-4fcc-8c20-d1039c537d01",
+								"exec": [
+									"pm.test(\"success request 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases/5",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImMwaWwtY1phSENmdTZfcXZUekhuRyJ9.eyJpc3MiOiJodHRwczovL2Rldi1uaHgxanR2Zy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYyZTlkOWI2OGRlOTkwMDM3NDZlMzU0IiwiYXVkIjoiY2Fwc3RvbmUiLCJpYXQiOjE1OTcyMDAzNTQsImV4cCI6MTU5NzI3MjM1NCwiYXpwIjoiT0dvQkxjOTZpVGNlR0YzU0xocUZwRE8ycGsycnp3ZDgiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpjYXNlIiwiZ2V0OmRvbmF0aW9ucyIsInBvc3Q6Y2FzZSJdfQ.eGx687R15pTYQxaslVnbGjB5Mb-uv5XKxZITkOePANdRhei_Ad2GkYdknHEFseiVMB69kydSVR_oiyidw1y67p9tls_r19z704evDK3YxP3uE9PpZc_CwN-nuFWseo9olkwX-TQ-rZo4oCrVrPu8GqD4q1_8YT55koRq89guAmZpLYJYDK90AerqaWOQ0yfjB9LDVDEo2vEoUnxez0AKvCy5E6mGmlsPp-448Qa6m3IUOG4AgsCnyeUp-vwJWi69BzUF9xOZks9b1SPTimagOiSWd581eB3NmWIz-8rVf30Pr7cVr9T05xb5WAsm8QUiy1uXMKq7VC6CWNeCqxwToA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8744981f-e3e4-43e3-a068-541fd1983893",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "370aa525-1cb5-4918-826d-57263dc4f6c3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "donor",
+			"item": [
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "610fb118-05fe-4c1e-9645-0b3964af17af",
+								"exec": [
+									"pm.test(\"unathorized status code 403\", function(){\r",
+									"    pm.response.to.have.status(403)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"issuer\": \"Godd\",\r\n    \"services\": [{\"description\":\"test1\", \"amount\":20,\"quantity\":10},{\"description\":\"test3\",\"amount\":200,\"quantity\":1}],\r\n    \"number\": \"tryfme\",\r\n    \"total_amount\": 230.0\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f1c71cd-d617-45dc-a387-7a3c0dcd665b",
+								"exec": [
+									"pm.test(\"success request 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('expected type of response is array of objects', function(){\r",
+									"    var res = pm.response.json();\r",
+									"    var cases = res.cases;\r",
+									"    pm.expect(cases).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"pm.test('expected type of response is array of objects', function(){\r",
+									"    var res = pm.response.json();\r",
+									"    var cases = res.cases;\r",
+									"    if(cases.length > 0)\r",
+									"        pm.expect(cases[1]['services']).to.be.an('array');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f07ac11-69af-46d2-b54c-08cc5baa3306",
+								"exec": [
+									"pm.test(\"success request 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"amount\": 230}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases/1",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "donations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73724af7-466f-484b-a82a-d5f7ced388ed",
+								"exec": [
+									"pm.test(\"success request 403\", function(){\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/donations",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"donations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0de269df-f41b-411e-8c9d-b70c794d92c1",
+								"exec": [
+									"pm.test(\"success request 403\", function(){\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://we-donors.herokuapp.com/cases/1",
+							"protocol": "https",
+							"host": [
+								"we-donors",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImMwaWwtY1phSENmdTZfcXZUekhuRyJ9.eyJpc3MiOiJodHRwczovL2Rldi1uaHgxanR2Zy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYyZWMzZTQ3ZWUwZjAwMDNkOGNiNjhkIiwiYXVkIjoiY2Fwc3RvbmUiLCJpYXQiOjE1OTcyMDA1NjcsImV4cCI6MTU5NzI3MjU2NywiYXpwIjoiT0dvQkxjOTZpVGNlR0YzU0xocUZwRE8ycGsycnp3ZDgiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbInBhdGNoOmNhc2UiXX0.n68t5T5wLDk_2oZBggMFmSUqq5MWVtJlrERKz3Oj1K48KphQ2LU6lGH_uQ8PapV_6RBzt8yl-apqNzz0-ETcXqP9qwN_xn8pp_Fg4EZA4MvUcyPzIxTIzlOSl_DdSgJRGV36YM_8fkxEM7xoewPd5wBVeoEpf_RfWm1lQ-oL4iTHVVROO0PwWjmvWQYBMVDUQ6XH0nWGfSAtElN5TjJ8a2oIqI88zYfdrusMmrWFS9qrmUzRY8sZLBJn-bVk4atTpxzDwE9-GfSnLmn-sH194AMU2IM_uNJXa91KvFOTUnS7fQ9JFPqKu7ycef7FWYJQHQ0Q71ejFFBfdeaQOi_nmA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "446e96b3-606e-465e-b50b-8c09d8f35d42",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b38ff57-64d5-4953-a57a-a8c6c4e01e9b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
