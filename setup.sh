@@ -1,5 +1,3 @@
-export DATABASE_URL='postgres://xhgtwddkovihiy:7ff1b99b677b99277a241e4cc788b5f255efc6b1fbf59af029395700bcb93af8@ec2-50-16-198-4.compute-1.amazonaws.com:5432/d1o28uhamc2kfa'
-export TEST_DATABASE_URL='postgres://xhgtwddkovihiy:7ff1b99b677b99277a241e4cc788b5f255efc6b1fbf59af029395700bcb93af8@ec2-50-16-198-4.compute-1.amazonaws.com:5432/d1o28uhamc2kfa'
 export AUTH0_DOMAIN='dev-nhx1jtvg.us.auth0.com'
 export ALGORITHMS=['RS256']
 export API_AUDIENCE='capstone'
